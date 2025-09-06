@@ -14,7 +14,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 try {
     console.log("Pinging Supabase...");
-    const { data, error } = await supabase.from('users').select('*').limit(1);
+    const { data, error } = await supabase.from('pingable').select('*').limit(1);
 
     if (error) {
         throw error; // Throw error to be caught by the catch block
