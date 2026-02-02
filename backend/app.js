@@ -1,75 +1,79 @@
-import createError from 'http-errors';
-import express, { json, urlencoded, static as serveStatic } from 'express';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
-import cookieParser from 'cookie-parser';
-import logger from 'morgan';
-import cors from 'cors';
-import session from 'express-session';
-import connectPgSimple from 'connect-pg-simple';
+import createError from "http-errors";
+import express, { json, urlencoded, static as serveStatic } from "express";
+import { join, dirname } from "path";
+import { fileURLToPath } from "url";
+import cookieParser from "cookie-parser";
+import logger from "morgan";
+import cors from "cors";
+import session from "express-session";
+import connectPgSimple from "connect-pg-simple";
 // import passport from 'passport';
 // import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 // import { Strategy as MicrosoftStrategy } from 'passport-microsoft';
 
 // routes
-import indexRouter from './routes/index.js';
-import loginRouter from './routes/login.js';
-import registerRouter from './routes/register.js';
-import settingsRouter from './routes/settings.js';
-import listingsRouter from './routes/listings.js';
-import autocompleteRouter from './routes/autocomplete.js';
-import logoutRouter from './routes/logout.js';
-import supportRouter from './routes/support.js';
-import resetPasswordRouter from './routes/resetpassword.js';
-import propertyRouter from './routes/property.js';
-import bookingRouter from './routes/booking.js';
-import tripsRouter from './routes/trips.js';
-import notificationsRouter from './routes/notifications.js';
-import hostRouter from './routes/host.js';
-import hostDashboardRouter from './routes/hostdashboard.js';
-import authRouter from './routes/auth.js';
-import wakeupRouter from './routes/wakeup.js';
+import indexRouter from "./routes/index.js";
+import loginRouter from "./routes/login.js";
+import registerRouter from "./routes/register.js";
+import settingsRouter from "./routes/settings.js";
+import listingsRouter from "./routes/listings.js";
+import autocompleteRouter from "./routes/autocomplete.js";
+import logoutRouter from "./routes/logout.js";
+import supportRouter from "./routes/support.js";
+import resetPasswordRouter from "./routes/resetpassword.js";
+import propertyRouter from "./routes/property.js";
+import bookingRouter from "./routes/booking.js";
+import tripsRouter from "./routes/trips.js";
+import notificationsRouter from "./routes/notifications.js";
+import hostRouter from "./routes/host.js";
+import hostDashboardRouter from "./routes/hostdashboard.js";
+import authRouter from "./routes/auth.js";
+import wakeupRouter from "./routes/wakeup.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const app = express();
 // trust proxy for render
-app.set('trust proxy', 1);
+app.set("trust proxy", 1);
 // session store for postgresql
 const PgStore = connectPgSimple(session);
 
-app.use(cors({
-  origin: ['http://localhost:5173', 'https://l145.be'],
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://aryxenv.dev"],
+    credentials: true,
+  }),
+);
 
-app.use(logger('dev'));
+app.use(logger("dev"));
 app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(serveStatic(join(__dirname, 'public')));
+app.use(serveStatic(join(__dirname, "public")));
 
 // session middleware (stored as browser cookies and validated with DB session store)
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,
-  store: new PgStore({
-    conString: process.env.DATABASE_URL,
-    tableName: 'user_sessions',
-    createTableIfMissing: true
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: new PgStore({
+      conString: process.env.DATABASE_URL,
+      tableName: "user_sessions",
+      createTableIfMissing: true,
+    }),
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24, // 24 hours
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // conditionally secure, insecure in development (for speed) -> process.env.NODE_ENV === 'production'
+      // domain: process.env.NODE_ENV === 'development' ? 'localhost' : '.aryxenv.dev', // in development -> localhost, in production -> .aryxenv.dev
+      path: "/", // try to change to /airbnb-camping/
+      sameSite: "none",
+    },
+    rolling: true, // when user makes request to backend, maxAge resets (keeps user logged in if active in the past 24 hours, for UX)
   }),
-  cookie: {
-    maxAge: 1000 * 60 * 60 * 24, // 24 hours
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production', // conditionally secure, insecure in development (for speed) -> process.env.NODE_ENV === 'production'
-    // domain: process.env.NODE_ENV === 'development' ? 'localhost' : '.l145.be', // in development -> localhost, in production -> .l145.be
-    path: '/', // try to change to /airbnb-camping/
-    sameSite: 'none'
-  },
-  rolling: true, // when user makes request to backend, maxAge resets (keeps user logged in if active in the past 24 hours, for UX)
-}));
+);
 
 // Configure Passport.js
 // passport.use(new GoogleStrategy({
@@ -102,23 +106,23 @@ app.use(session({
 // app.use(passport.session());
 
 // paths to routes
-app.use('/', indexRouter);
-app.use('/login', loginRouter);
-app.use('/register', registerRouter);
-app.use('/settings', settingsRouter);
-app.use('/listings', listingsRouter);
-app.use('/autocomplete', autocompleteRouter);
-app.use('/logout', logoutRouter);
-app.use('/support', supportRouter);
-app.use('/resetpassword', resetPasswordRouter);
-app.use('/property', propertyRouter);
-app.use('/booking', bookingRouter);
-app.use('/trips', tripsRouter);
-app.use('/notifications', notificationsRouter);
-app.use('/host', hostRouter);
-app.use('/hostdashboard', hostDashboardRouter);
-app.use('/auth', authRouter);
-app.use('/wake-up', wakeupRouter);
+app.use("/", indexRouter);
+app.use("/login", loginRouter);
+app.use("/register", registerRouter);
+app.use("/settings", settingsRouter);
+app.use("/listings", listingsRouter);
+app.use("/autocomplete", autocompleteRouter);
+app.use("/logout", logoutRouter);
+app.use("/support", supportRouter);
+app.use("/resetpassword", resetPasswordRouter);
+app.use("/property", propertyRouter);
+app.use("/booking", bookingRouter);
+app.use("/trips", tripsRouter);
+app.use("/notifications", notificationsRouter);
+app.use("/host", hostRouter);
+app.use("/hostdashboard", hostDashboardRouter);
+app.use("/auth", authRouter);
+app.use("/wake-up", wakeupRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -129,7 +133,7 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.error = req.app.get("env") === "development" ? err : {};
 
   // Send JSON error response for API, ONLY if headers haven't been sent
   if (!res.headersSent) {

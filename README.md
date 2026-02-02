@@ -1,17 +1,21 @@
 # Airbnb for Campers
 
-Available Online: https://www.l145.be/airbnb-camping/
+> [!NOTE]
+> Mailing service broken due to rebrand from l145dev to aryxenv
+
+Available Online: https://www.aryxenv.dev/airbnb-camping/
 
 A full-stack web application inspired by Airbnb, tailored for campers and hosts to list, discover, and book unique camping properties. The platform supports both regular users (guests) and property owners (hosts), providing a seamless experience for booking, hosting, and managing camping stays.
 
 > [!IMPORTANT]  
 > Not related to Airbnb, Inc., only made for educational purposes with inspiration from [Airbnb](https://airbnb.com/).
 
-![Demo Screenshot](https://github.com/l145dev/Airbnb-for-campers/blob/main/homeAirbnbCamping.png)
+![Demo Screenshot](https://github.com/aryxenv/Airbnb-for-campers/blob/main/homeAirbnbCamping.png)
 
 ---
 
 ## Table of Contents
+
 - [Features](#features)
 - [Tech Stack](#tech-stack)
 - [Installation](#local-installation)
@@ -27,6 +31,7 @@ A full-stack web application inspired by Airbnb, tailored for campers and hosts 
 ## Features
 
 ### For Campers (Users)
+
 - Browse and search for camping properties by type, location, date, and guest count
 - View detailed property information, amenities, reviews, and ratings
 - Book properties with secure payment (Stripe, PayPal, Google Pay)
@@ -36,12 +41,14 @@ A full-stack web application inspired by Airbnb, tailored for campers and hosts 
 - Support and password reset functionality
 
 ### For Hosts (Owners)
+
 - Become a host and list new camping properties
 - Manage property details, availability, and amenities
 - View and manage bookings, revenue, and property performance
 - Respond to reviews and manage notifications
 
 ### General
+
 - Modern, responsive UI/UX (Figma-designed)
 - Session-based authentication (secure cookies)
 - Rate limiting and security best practices
@@ -54,6 +61,7 @@ A full-stack web application inspired by Airbnb, tailored for campers and hosts 
 ## Tech Stack
 
 **Frontend:**
+
 - React 19, TypeScript, Vite
 - Tailwind CSS, shadcn/ui, Radix UI
 - React Router, TanStack React Query
@@ -61,6 +69,7 @@ A full-stack web application inspired by Airbnb, tailored for campers and hosts 
 - Axios
 
 **Backend:**
+
 - Node.js, Express.js
 - PostgreSQL (via Prisma ORM)
 - Session management (express-session, connect-pg-simple)
@@ -70,16 +79,18 @@ A full-stack web application inspired by Airbnb, tailored for campers and hosts 
 - Rate limiting, CORS, dotenv
 
 **Deployment:**
+
 - **Backend:**
-    * Render
+  - Render
 - **Frontend:**
-    * Combell Webhost
+  - Combell Webhost
 - **Database:**
-    * Supabase
+  - Supabase
 - **SMTP:**
-    * Combell Webmail
+  - Combell Webmail
 
 **Other:**
+
 - Figma (design)
 - Photopea (logo)
 - Postman (API testing)
@@ -87,19 +98,22 @@ A full-stack web application inspired by Airbnb, tailored for campers and hosts 
 ---
 
 ## Access Online
-https://www.l145.be/airbnb-camping
 
-## Local Installation 
+https://www.aryxenv.dev/airbnb-camping
+
+## Local Installation
 
 ### Prerequisites
+
 - Node.js (v18+ recommended)
 - npm
 - PostgreSQL
 
 ### Clone & Branch
+
 1. Clone the repository
    ```bash
-   git clone "https://github.com/l145dev/Airbnb-for-campers.git"
+   git clone "https://github.com/aryxenv/Airbnb-for-campers.git"
    cd Airbnb-for-campers
    ```
 2. Navigate to development branch (local only)
@@ -110,12 +124,14 @@ https://www.l145.be/airbnb-camping
 ### Backend Setup
 
 1. Navigate to `/backend`:
+
    ```bash
    cd backend
    npm install
    ```
 
 2. Create a `.env` file in `/backend` with the following structure:
+
    ```env
    NODE_ENV="development"
 
@@ -158,6 +174,7 @@ https://www.l145.be/airbnb-camping
    - (Optional) Import dummy data from `airbnb_for_campers_dummy_data.sql`.
 
 4. Prisma setup:
+
    ```bash
    npx prisma generate
    npx prisma db pull
@@ -171,6 +188,7 @@ https://www.l145.be/airbnb-camping
    ```
 
 ### Frontend Setup
+
 1. Navigate to `/frontend`:
    ```bash
    cd frontend
@@ -185,6 +203,7 @@ https://www.l145.be/airbnb-camping
 ---
 
 ## Usage
+
 - Register as a user or host
 - Search and book camping properties
 - Manage your bookings and reviews
@@ -211,6 +230,7 @@ See [`api_structure.md`](./api_structure.md) for a full list and details.
 ---
 
 ## Database
+
 - PostgreSQL database schema defined in `backend/prisma/schema.prisma`
 - See `airbnb_for_campers.sql` for schema and `airbnb_for_campers_dummy_data.sql` for sample data
 - Managed via Prisma ORM
@@ -221,6 +241,7 @@ See [`api_structure.md`](./api_structure.md) for a full list and details.
 ## Contributing
 
 Contributions are welcome! To contribute:
+
 1. Fork the repository
 2. Create a new branch (`git checkout -b feature/your-feature`)
 3. Commit your changes (`git commit -am 'Add new feature'`)
@@ -240,13 +261,14 @@ This project is for educational purposes. For licensing or commercial use, pleas
 ## Contact
 
 - **Author:** Aryan Shah
-- **Email:** [aryan.shah@l145.be](mailto:aryan.shah@l145.be)
-- **GitHub:** [l145dev](https://github.com/l145dev/)
-- **LinkedIn:** [Aryan Shah](https://www.linkedin.com/in/aryan-shah-l145/)
+- **Email:** [aryan@aryxenv.dev](mailto:aryan@aryxenv.dev)
+- **GitHub:** [aryxenv](https://github.com/aryxenv/)
+- **LinkedIn:** [Aryan Shah](https://www.linkedin.com/in/aryxenv/)
 
 ---
 
 ## Acknowledgements
+
 - Inspired by [Airbnb](https://airbnb.com)
 - Design: [Figma file](https://www.figma.com/design/qVHicDrQJj22ktJG8Av48w/Airbnb-for-campers?node-id=0-1&t=A8fgqenPBBauZoPE-1)
 - Logo: [Photopea](https://www.photopea.com/)
